@@ -1,35 +1,33 @@
 import React, { useEffect, useState } from "react";
-import animalesServices from "../services/Animales";
+import productosService from "../services/Productos";
 
 function Agregar() {
-    const [propietario, setPropietario] = useState(null);
+    const [categoria, setCategoria] = useState(null);
+    const [codigo, setCodigo] = useState(null);
     const [nombre, setNombre] = useState(null);
-    const [especie, setEspecie] = useState(null);
-    const [raza, setRaza] = useState(null);
-    const [color, setColor] = useState(null);
-    const [fecha_nacimiento, setFecha] = useState(null);
-    const [genero, setGenero] = useState([]);
+    const [stock, setStock] = useState(null);
+    const [descripcion, setDescripcion] = useState(null);
+    const [imagen, setImagen] = useState(null);
 
-    useEffect(() => {
-        async function fetchDataRol() {
-            // load data from API
-            const res = await animalesServices.list();
-            setListRol(res.data);
-        }
-        fetchDataRol();
-    }, []);
+    // useEffect(() => {
+    //     async function fetchDataRol() {
+    //         // load data from API
+    //         const res = await productosService.list();
+    //         setListRol(res.data);
+    //     }
+    //     fetchDataRol();
+    // }, []);
 
-    const saveAnimal = async () => {
+    const saveProducto = async () => {
         const data = {
-            propietario,
+            categoria,
+            codigo,
             nombre,
-            especie,
-            raza,
-            color,
-            fecha_nacimiento,
-            genero
+            stock,
+            descripcion,
+            imagen
         };
-        const res = await animalesServices.save(data);
+        const res = await productosService.save(data);
 
         if (res.success) {
             Swal.fire({
@@ -66,12 +64,12 @@ function Agregar() {
                             </div>
                             <input
                                 type="text"
-                                name="propietario"
+                                name="categoria"
                                 className="form-control rounded-right"
                                 required
-                                placeholder="Propietario"
+                                placeholder="Categoria"
                                 onChange={event =>
-                                    setPropietario(event.target.value)
+                                    setCategoria(event.target.value)
                                 }
                             />
                         </div>
@@ -80,6 +78,24 @@ function Agregar() {
                             <div className="input-group-prepend">
                                 <span className="input-group-text">
                                     <i className="fas fa-paw"></i>
+                                </span>
+                            </div>
+                            <input
+                                type="text"
+                                name="codigo"
+                                className="form-control rounded-right"
+                                required
+                                placeholder="Codigo de Producto"
+                                onChange={event =>
+                                    setCodigo(event.target.value)
+                                }
+                            />
+                        </div>
+
+                        <div className="input-group">
+                            <div className="input-group-prepend">
+                                <span className="input-group-text">
+                                    <i className="fas fa-dragon"></i>
                                 </span>
                             </div>
                             <input
@@ -97,34 +113,16 @@ function Agregar() {
                         <div className="input-group">
                             <div className="input-group-prepend">
                                 <span className="input-group-text">
-                                    <i className="fas fa-dragon"></i>
-                                </span>
-                            </div>
-                            <input
-                                type="text"
-                                name="especie"
-                                className="form-control rounded-right"
-                                required
-                                placeholder="Especie"
-                                onChange={event =>
-                                    setEspecie(event.target.value)
-                                }
-                            />
-                        </div>
-
-                        <div className="input-group">
-                            <div className="input-group-prepend">
-                                <span className="input-group-text">
                                     <i className="fas fa-dog"></i>
                                 </span>
                             </div>
                             <input
                                 type="text"
-                                name="raza"
+                                name="stock"
                                 className="form-control rounded-right"
                                 required
-                                placeholder="Raza"
-                                onChange={event => setRaza(event.target.value)}
+                                placeholder="Stock"
+                                onChange={event => setStock(event.target.value)}
                             />
                         </div>
 
@@ -136,11 +134,13 @@ function Agregar() {
                             </div>
                             <input
                                 type="text"
-                                name="color"
+                                name="descripcion"
                                 className="form-control rounded-right"
                                 required
-                                placeholder="Color"
-                                onChange={event => setColor(event.target.value)}
+                                placeholder="Descripcion"
+                                onChange={event =>
+                                    setDescripcion(event.target.value)
+                                }
                             />
                         </div>
 
@@ -151,40 +151,21 @@ function Agregar() {
                                 </span>
                             </div>
                             <input
-                                type="date"
-                                name="fecha_nacimiento"
+                                type="text"
+                                name="stock"
                                 className="form-control rounded-right"
                                 required
-                                placeholder="Fecha de Nacimiento"
-                                onChange={event => setFecha(event.target.value)}
-                            />
-                        </div>
-
-                        <div className="input-group">
-                            <div className="input-group-prepend">
-                                <span className="input-group-text">
-                                    <i className="fas fa-mars"></i>
-                                    <i className="fas fa-venus"></i>
-                                </span>
-                            </div>
-                            <select
-                                className="custom-select"
-                                name="genero"
-                                required
+                                placeholder="Imagen"
                                 onChange={event =>
-                                    setGenero(event.target.value)
+                                    setImagen(event.target.value)
                                 }
-                            >
-                                <option value="">Genero</option>
-                                <option value="Macho">Macho</option>
-                                <option value="Hembra">Hembra</option>
-                            </select>
+                            />
                         </div>
 
                         <button
                             type="submit"
                             className="btn btn-primary"
-                            onClick={() => saveAnimal()}
+                            onClick={() => saveProducto()}
                         >
                             Agregar
                         </button>

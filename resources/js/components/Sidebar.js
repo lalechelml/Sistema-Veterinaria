@@ -1,83 +1,90 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 function Sidebar() {
     return (
         <nav
             id="sidebarMenu"
-            class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse"
+            className="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse"
         >
-            <div class="sidebar-sticky pt-3">
-                <ul class="nav flex-column">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">
-                            <span data-feather="home"></span>
-                            Inicio <span class="sr-only">(current)</span>
-                        </a>
+            <div className="sidebar-sticky pt-3">
+                <ul className="nav flex-column">
+                    <li className="nav-item">
+                        <NavLink
+                            className="nav-link "
+                            to="/"
+                            activeClassName="active"
+                        >
+                            Inicio
+                        </NavLink>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="file"></span>
+                    <li className="nav-item">
+                        <NavLink
+                            className="nav-link a"
+                            to="/animales"
+                            activeClassName="active"
+                        >
                             Animales
-                        </a>
+                        </NavLink>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="shopping-cart"></span>
+                    <li className="nav-item">
+                        <a className="nav-link" href="#">
                             Clientes
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="users"></span>
+                    <li className="nav-item">
+                        <a className="nav-link" href="#">
                             Medicos
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
-                            <span data-feather="bar-chart-2"></span>
+                    <li className="nav-item">
+                        <a className="nav-link" href="#">
                             Admin
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
+                    <li className="nav-item">
+                        <a className="nav-link" href="#">
                             <span data-feather="layers"></span>
                             NO se Que poner
                         </a>
                     </li>
                 </ul>
 
-                <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                <h6 className="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
                     <span>Ecommerce</span>
                     <a
-                        class="d-flex align-items-center text-muted"
+                        className="d-flex align-items-center text-muted"
                         href="#"
                         aria-label="Add a new report"
                     >
                         <span data-feather="plus-circle"></span>
                     </a>
                 </h6>
-                <ul class="nav flex-column mb-2">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
+                <ul className="nav flex-column mb-2">
+                    <li className="nav-item">
+                        <NavLink
+                            className="nav-link"
+                            to={"/productos"}
+                            activeClassName="active"
+                        >
                             <span data-feather="file-text"></span>
                             Productos
-                        </a>
+                        </NavLink>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
+                    <li className="nav-item">
+                        <a className="nav-link" href="#">
                             <span data-feather="file-text"></span>
                             Servicios
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
+                    <li className="nav-item">
+                        <a className="nav-link" href="#">
                             <span data-feather="file-text"></span>
                             Caja
                         </a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">
+                    <li className="nav-item">
+                        <a className="nav-link" href="#">
                             <span data-feather="file-text"></span>
                             gaaaaaaa
                         </a>

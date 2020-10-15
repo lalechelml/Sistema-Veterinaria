@@ -1,25 +1,25 @@
 import React, { useEffect, useState } from "react";
-import animalesServices from "../services/Animales";
+import productosService from "../services/Productos";
 
 import { Link } from "react-router-dom";
 
 function Listar() {
-    const [listAnimal, setListAnimal] = useState([]);
+    const [listProducto, setListProducto] = useState([]);
 
     // const [query, setQuery] = useState("-");
 
     const buscar = async query => {
-        const res = await animalesServices.list(query);
-        setListAnimal(res.data);
+        const res = await productosService.list(query);
+        setListProducto(res.data);
     };
 
     useEffect(() => {
-        async function fetchDataAnimal() {
-            const res = await animalesServices.list("-");
-            setListAnimal(res.data);
+        async function fetchDataproducto() {
+            const res = await productosService.list("-");
+            setListProducto(res.data);
         }
 
-        fetchDataAnimal();
+        fetchDataproducto();
     }, []);
 
     const onClickDelete = async id => {
@@ -34,10 +34,10 @@ function Listar() {
             cancelButtonText: "Cancelar"
         }).then(async result => {
             if (result.isConfirmed) {
-                const res = await animalesServices.delete(id);
+                const res = await productosService.delete(id);
                 if (res.success) {
-                    const rese = await animalesServices.list("-");
-                    setListAnimal(rese.data);
+                    const rese = await productosService.list("-");
+                    setListProducto(rese.data);
                     Swal.fire({
                         position: "top-center",
                         icon: "success",
@@ -62,7 +62,7 @@ function Listar() {
                 <input
                     className="form-control mr-sm-2"
                     type="search"
-                    placeholder="Buscar Animal"
+                    placeholder="Buscar producto"
                     aria-label="Search"
                     onChange={event => {
                         if (event.target.value != "") {
@@ -86,36 +86,33 @@ function Listar() {
                             <thead className="thead-dark">
                                 <tr>
                                     <th scope="col">ID</th>
+                                    <th scope="col">Categoria</th>
+                                    <th scope="col">Codigo</th>
                                     <th scope="col">Nombre</th>
-                                    <th scope="col">Especie</th>
-                                    <th scope="col">Raza</th>
-                                    <th scope="col">Color</th>
-                                    <th scope="col">Fecha de Nacimiento</th>
-                                    <th scope="col">Genero</th>
-                                    <th scope="col">Dueño</th>
+                                    <th scope="col">Stock</th>
+                                    <th scope="col">Descripción</th>
+                                    <th scope="col">Imagen</th>
                                     <th scope="col">Acciones</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {listAnimal.map(animal => {
+                                {listProducto.map(producto => {
                                     return (
-                                        <tr key={animal.ani_id}>
+                                        <tr key={producto.prod_id}>
                                             <th scope="row">
-                                                {animal.ani_id}{" "}
+                                                {producto.prod_id}{" "}
                                             </th>
-                                            <td> {animal.ani_nombre}</td>
-                                            <td> {animal.ani_especie} </td>
-                                            <td>{animal.ani_raza} </td>
-                                            <td>{animal.ani_color} </td>
                                             <td>
                                                 {" "}
-                                                {animal.ani_fecha_nacimiento}
+                                                {producto.categoria.catp_nombre}
                                             </td>
-                                            <td> {animal.ani_genero}</td>
+                                            <td> {producto.prod_codigo}</td>
+                                            <td> {producto.prod_nombre}</td>
+                                            <td> {producto.prod_stock} </td>
                                             <td>
-                                                {" "}
-                                                {animal.propietario.pro_nombre}
+                                                {producto.prod_descripcion}{" "}
                                             </td>
+                                            <td>{producto.prod_imagen} </td>
 
                                             <td>
                                                 <div className="d-flex">
@@ -123,7 +120,7 @@ function Listar() {
                                                         className="mx-3 button-action"
                                                         onClick={() =>
                                                             onClickDelete(
-                                                                animal.ani_id
+                                                                producto.prod_id
                                                             )
                                                         }
                                                     >
@@ -131,8 +128,8 @@ function Listar() {
                                                     </a>
                                                     <Link
                                                         to={
-                                                            "/animales/editar/" +
-                                                            animal.ani_id
+                                                            "/productos/editar/" +
+                                                            producto.prod_id
                                                         }
                                                     >
                                                         <i className="fas fa-edit"></i>

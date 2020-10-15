@@ -10,19 +10,15 @@ class Animal extends Model
     use HasFactory;
 
     protected $table = 'animal';
-    protected $primaryKey = 'id_animal';
+    protected $primaryKey = 'ani_id';
     public $timestamps = false;
 
     protected $fillable = [
-        'id_cliente', 'id_medico', 'nombre', 'especie', 'raza', 'color', 'fecha_nacimiento', 'genero',
+        'pro_id', 'ani_nombre', 'ani_especie', 'ani_raza', 'ani_color', 'ani_fecha_nacimiento', 'ani_genero',
     ];
 
-    public function cliente()
+    public function propietario()
     {
-        return $this->belongsTo(Cliente::class, 'id_cliente');
-    }
-    public function medico()
-    {
-        return $this->belongsTo(Medico::class, 'id_medico');
+        return $this->belongsTo(Propietario::class, 'pro_id');
     }
 }

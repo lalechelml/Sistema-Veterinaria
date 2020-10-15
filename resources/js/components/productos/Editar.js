@@ -1,30 +1,30 @@
 import React, { useEffect, useState } from "react";
-import animalesServices from "../services/Animales";
+import productoService from "../services/Productos";
 
 function Editar(props) {
     const [id, setId] = useState("");
-    const [propietario, setPropietario] = useState("");
+    const [categoria, setCategoria] = useState("");
+    const [codigo, setCodigo] = useState("");
     const [nombre, setNombre] = useState("");
-    const [especie, setEspecie] = useState("");
-    const [raza, setRaza] = useState("");
-    const [color, setColor] = useState("");
-    const [fecha_nacimiento, setFecha] = useState("");
-    const [genero, setGenero] = useState("");
+    const [stock, setStock] = useState("");
+    const [descripcion, setDescripcion] = useState("");
+    const [imagen, setImagen] = useState("");
 
     useEffect(() => {
+        console.log("gaaa");
+        debugger;
         async function fetchDataEmployee() {
             let id = props.match.params.id;
-            const res = await animalesServices.get(id);
+            const res = await productoService.get(id);
             if (res.success) {
                 const data = res.data;
-                setId(data.ani_id);
-                setPropietario(data.propietario.pro_id);
-                setNombre(data.ani_nombre);
-                setEspecie(data.ani_especie);
-                setRaza(data.ani_raza);
-                setColor(data.ani_color);
-                setFecha(data.ani_fecha_nacimiento);
-                setGenero(data.ani_genero);
+                setId(data.prod_id);
+                setCategoria(data.categoria.catp_id);
+                setCodigo(data.prod_codigo);
+                setNombre(data.prod_nombre);
+                setStock(data.prod_stock);
+                setDescripcion(data.prod_descripcion);
+                setImagen(data.prod_imagen);
             } else {
                 alert(res.message);
             }
@@ -35,15 +35,14 @@ function Editar(props) {
     const updateAnimal = async () => {
         const data = {
             id,
-            propietario,
+            categoria,
+            codigo,
             nombre,
-            especie,
-            raza,
-            color,
-            fecha_nacimiento,
-            genero
+            stock,
+            descripcion,
+            imagen
         };
-        const res = await animalesServices.update(data);
+        const res = await productoService.update(data);
         if (res.success) {
             Swal.fire({
                 position: "top-center",
@@ -80,6 +79,44 @@ function Editar(props) {
                             <input
                                 type="text"
                                 name="name"
+                                value={categoria}
+                                className="form-control rounded-right"
+                                required
+                                placeholder="Nombre"
+                                onChange={event =>
+                                    setCategoria(event.target.value)
+                                }
+                            />
+                        </div>
+
+                        <div className="input-group">
+                            <div className="input-group-prepend">
+                                <span className="input-group-text">
+                                    <i className="fas fa-paw"></i>
+                                </span>
+                            </div>
+                            <input
+                                type="text"
+                                name="name"
+                                value={codigo}
+                                className="form-control rounded-right"
+                                required
+                                placeholder="Nombre"
+                                onChange={event =>
+                                    setCodigo(event.target.value)
+                                }
+                            />
+                        </div>
+
+                        <div className="input-group">
+                            <div className="input-group-prepend">
+                                <span className="input-group-text">
+                                    <i className="fas fa-paw"></i>
+                                </span>
+                            </div>
+                            <input
+                                type="text"
+                                name="name"
                                 value={nombre}
                                 className="form-control rounded-right"
                                 required
@@ -99,13 +136,11 @@ function Editar(props) {
                             <input
                                 type="text"
                                 name="species"
-                                value={especie}
+                                value={stock}
                                 className="form-control rounded-right"
                                 required
                                 placeholder="Especie"
-                                onChange={event =>
-                                    setEspecie(event.target.value)
-                                }
+                                onChange={event => setStock(event.target.value)}
                             />
                         </div>
 
@@ -118,11 +153,13 @@ function Editar(props) {
                             <input
                                 type="text"
                                 name="race"
-                                value={raza}
+                                value={descripcion}
                                 className="form-control rounded-right"
                                 required
                                 placeholder="Raza"
-                                onChange={event => setRaza(event.target.value)}
+                                onChange={event =>
+                                    setDescripcion(event.target.value)
+                                }
                             />
                         </div>
 
@@ -134,71 +171,13 @@ function Editar(props) {
                             </div>
                             <input
                                 type="text"
-                                name="color"
-                                value={color}
+                                name="imagen"
+                                value={imagen}
                                 className="form-control rounded-right"
                                 required
-                                placeholder="Color"
-                                onChange={event => setColor(event.target.value)}
-                            />
-                        </div>
-
-                        <div className="input-group">
-                            <div className="input-group-prepend">
-                                <span className="input-group-text">
-                                    <i className="fas fa-calendar-week"></i>
-                                </span>
-                            </div>
-                            <input
-                                type="date"
-                                name="date_birth"
-                                value={fecha_nacimiento}
-                                className="form-control rounded-right"
-                                required
-                                placeholder="Fecha de Nacimiento"
-                                onChange={event => setFecha(event.target.value)}
-                            />
-                        </div>
-
-                        <div className="input-group">
-                            <div className="input-group-prepend">
-                                <span className="input-group-text">
-                                    <i className="fas fa-mars"></i>
-                                    <i className="fas fa-venus"></i>
-                                </span>
-                            </div>
-
-                            <select
-                                className="custom-select"
-                                name="gender"
-                                required
-                                value={genero}
+                                placeholder="imagen"
                                 onChange={event =>
-                                    setGenero(event.target.value)
-                                }
-                            >
-                                <option selected>Genero</option>
-                                <option value="Macho">Macho</option>
-                                <option value="Hembra">Hembra</option>
-                            </select>
-                        </div>
-
-                        <div className="input-group">
-                            <div className="input-group-prepend">
-                                <span className="input-group-text">
-                                    <i className="fas fa-user-alt"></i>
-                                </span>
-                            </div>
-
-                            <input
-                                type="text"
-                                name="propietario"
-                                value={propietario}
-                                className="form-control rounded-right"
-                                required
-                                placeholder="Dueño"
-                                onChange={event =>
-                                    setPropietario(event.target.value)
+                                    setImagen(event.target.value)
                                 }
                             />
                         </div>

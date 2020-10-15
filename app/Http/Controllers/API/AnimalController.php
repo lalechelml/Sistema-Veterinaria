@@ -5,25 +5,14 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Animal;
-use App\Models\Cliente;
-use App\Models\Medico;
+use App\Models\Propietario;
 
 class AnimalController extends Controller
 {
-  public function listar()
+
+  public function propietario()
   {
-    $data = Animal::get();
-
-    $response['data'] = $data;
-    $response['succes'] = true;
-
-    return $response;
-  }
-
-
-  public function cliente()
-  {
-    $data = Cliente::get();
+    $data = Propietario::get();
 
     $response['data'] = $data;
     $response['succes'] = true;
@@ -35,11 +24,10 @@ class AnimalController extends Controller
   {
 
     try {
-
       if ($query != "-" && $query != "") {
-        $data = Animal::where('nombre', 'LIKE', $query . "%")->with("cliente.usuario", "medico.usuario")->get();
+        $data = Animal::where('ani_nombre', 'LIKE', $query . "%")->with("propietario")->get();
       } else {
-        $data = Animal::with("cliente.usuario", "medico.usuario")->get();
+        $data = Animal::with("propietario")->get();
       }
       $response['data'] = $data;
       $response['success'] = true;
@@ -53,14 +41,13 @@ class AnimalController extends Controller
   public function create(Request $request)
   {
     try {
-      $insert['id_cliente'] = $request['cliente'];
-      $insert['id_medico'] = $request['medico'];
-      $insert['nombre'] = $request['nombre'];
-      $insert['especie'] = $request['especie'];
-      $insert['raza'] = $request['raza'];
-      $insert['color'] = $request['color'];
-      $insert['fecha_nacimiento'] = $request['fecha_nacimiento'];
-      $insert['genero'] = $request['genero'];
+      $insert['pro_id'] = $request['propietario'];
+      $insert['ani_nombre'] = $request['nombre'];
+      $insert['ani_especie'] = $request['especie'];
+      $insert['ani_raza'] = $request['raza'];
+      $insert['ani_color'] = $request['color'];
+      $insert['ani_fecha_nacimiento'] = $request['fecha_nacimiento'];
+      $insert['ani_genero'] = $request['genero'];
 
       Animal::insert($insert);
 
@@ -79,7 +66,7 @@ class AnimalController extends Controller
 
     try {
 
-      $data = Animal::with("cliente.usuario", "medico.usuario")->find($id);
+      $data = Animal::with("propietario")->find($id);
 
       if ($data) {
         $response['data'] = $data;
@@ -100,16 +87,15 @@ class AnimalController extends Controller
   public function update(Request $request, $id)
   {
     try {
-      $data['id_cliente'] = $request['cliente'];
-      $data['id_medico'] = $request['medico'];
-      $data['nombre'] = $request['nombre'];
-      $data['especie'] = $request['especie'];
-      $data['raza'] = $request['raza'];
-      $data['color'] = $request['color'];
-      $data['fecha_nacimiento'] = $request['fecha_nacimiento'];
-      $data['genero'] = $request['genero'];
+      $data['pro_id'] = $request['propietario'];
+      $data['ani_nombre'] = $request['nombre'];
+      $data['ani_especie'] = $request['especie'];
+      $data['ani_raza'] = $request['raza'];
+      $data['ani_color'] = $request['color'];
+      $data['ani_fecha_nacimiento'] = $request['fecha_nacimiento'];
+      $data['ani_genero'] = $request['genero'];
 
-      Animal::where("id_animal", $id)->update($data);
+      Animal::where("ani_id", $id)->update($data);
 
       $response['message'] = "Se actualizó correctamente";
       $response['success'] = true;
@@ -125,7 +111,7 @@ class AnimalController extends Controller
   {
 
     try {
-      Animal::where("id_animal", $id)->delete();
+      Animal::where("ani_id", $id)->delete();
       // $res = Animal::where("id_animal", $id)->delete();
       // $response['res'] = $res;
       $response['message'] = "Se eliminó correctamente";

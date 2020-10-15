@@ -90,7 +90,6 @@
 <body>
 
   @yield('content')
-  @yield('image')
   @include('footer')
   <!-- Optional JavaScript -->
   <!-- <script src="sweetalert2.all.min.js"></script> -->

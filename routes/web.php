@@ -20,5 +20,6 @@ Route::get('/', function () {
     return view('index');
 });
 
+
 Route::resource('clientes', ClienteController::class);
 Route::resource('animales', AnimalController::class);
