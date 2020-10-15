@@ -6,9 +6,16 @@ import { Link } from "react-router-dom";
 function Listar() {
     const [listAnimal, setListAnimal] = useState([]);
 
+    // const [query, setQuery] = useState("-");
+
+    const buscar = async query => {
+        const res = await animalesServices.list(query);
+        setListAnimal(res.data);
+    };
+
     useEffect(() => {
         async function fetchDataAnimal() {
-            const res = await animalesServices.list();
+            const res = await animalesServices.list("-");
             setListAnimal(res.data);
         }
 
@@ -23,14 +30,21 @@ function Listar() {
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
+            confirmButtonText: "Si, eliminar!",
+            cancelButtonText: "Cancelar"
         }).then(async result => {
             if (result.isConfirmed) {
                 const res = await animalesServices.delete(id);
                 if (res.success) {
-                    const rese = await animalesServices.list();
+                    const rese = await animalesServices.list("-");
                     setListAnimal(rese.data);
-                    Swal.fire("Eliminado!", res.message, "success");
+                    Swal.fire({
+                        position: "top-center",
+                        icon: "success",
+                        title: "Eliminado!",
+                        showConfirmButton: false,
+                        timer: 1000
+                    });
                 } else {
                     Swal.fire({
                         icon: "error",
@@ -44,15 +58,26 @@ function Listar() {
 
     return (
         <section>
+            <div className="form-inline">
+                <input
+                    className="form-control mr-sm-2"
+                    type="search"
+                    placeholder="Buscar Animal"
+                    aria-label="Search"
+                    onChange={event => {
+                        if (event.target.value != "") {
+                            buscar(event.target.value);
+                        } else buscar("-");
+                    }}
+                />
+                <button
+                    className="btn btn-outline-secondary my-2 my-sm-0"
+                    type="submit"
+                >
+                    Buscar
+                </button>
+            </div>
             <div className="container-fluid">
-                <div className="row">
-                    <div className="col-4 d-flex justify-content-center">
-                        <a href="" className="badge badge-dark">
-                            Agregar
-                        </a>
-                    </div>
-                    <div className="col-8"></div>
-                </div>
                 <div className="row justify-content-center">
                     <div className="col-8 d-flex justify-content-center align-items-center flex-column">
                         <h2 className="mb-2">Lista de Archivos</h2>

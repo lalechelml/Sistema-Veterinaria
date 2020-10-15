@@ -56,7 +56,7 @@ function Editar(props) {
         const res = await animalesServices.update(data);
         if (res.success) {
             Swal.fire({
-                position: "top-end",
+                position: "top-center",
                 icon: "success",
                 title: res.message,
                 showConfirmButton: false,

@@ -28,8 +28,8 @@ animales.save = async data => {
     return res;
 };
 
-animales.list = async () => {
-    const urlList = baseUrl + "/listar";
+animales.list = async query => {
+    const urlList = baseUrl + "/listar/" + query;
     const res = await axios
         .get(urlList)
         .then(response => {
@@ -39,6 +39,7 @@ animales.list = async () => {
             return error;
         });
     return res;
+    debugger;
 };
 
 animales.get = async id => {

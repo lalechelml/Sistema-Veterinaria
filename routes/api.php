@@ -21,7 +21,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/animales/clientes', 'App\Http\Controllers\API\AnimalController@listar');
 Route::post('/animales/agregar', 'App\Http\Controllers\API\AnimalController@create');
 Route::post('/animales/dueño', 'App\Http\Controllers\API\AnimalController@cliente');
-Route::get('/animales/listar', 'App\Http\Controllers\API\AnimalController@list');
+Route::get('/animales/listar/{query}', 'App\Http\Controllers\API\AnimalController@list');
 Route::get('/animales/get/{id}', 'App\Http\Controllers\API\AnimalController@get');
 Route::put('/animales/actualizar/{id}', 'App\Http\Controllers\API\AnimalController@update');
 Route::delete('/animales/eliminar/{id}', 'App\Http\Controllers\API\AnimalController@delete');

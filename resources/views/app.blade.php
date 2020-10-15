@@ -53,10 +53,36 @@
     #carousel .overlay .row {
       height: 100%;
     }
+
+    /* --------------------------- */
+    .bd-placeholder-img {
+      font-size: 1.125rem;
+      text-anchor: middle;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
+
+    @media (min-width: 768px) {
+      .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+      }
+    }
   </style>
 
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+  <!-- ------------------- -->
+  <!-- <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-dark@4/dark.css" rel="stylesheet"> -->
+  <!-- <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-minimal/minimal.css" rel="stylesheet">
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js"></script> -->
+
+  <!-- ..................... -->
+
   <script src="https://kit.fontawesome.com/4372725a41.js" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="css/dashboard.css" />
 
   <title>Crud Alumno</title>
 </head>
@@ -67,7 +93,7 @@
   @yield('image')
   @include('footer')
   <!-- Optional JavaScript -->
-  <script src="sweetalert2.all.min.js"></script>
+  <!-- <script src="sweetalert2.all.min.js"></script> -->
   <!-- Optional: include a polyfill for ES6 Promises for IE11 -->
   <script src="https://cdn.jsdelivr.net/npm/promise-polyfill"></script>
 

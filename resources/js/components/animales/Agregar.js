@@ -33,11 +33,9 @@ function Agregar() {
         };
         const res = await animalesServices.save(data);
 
-        console.log(res);
-
         if (res.success) {
             Swal.fire({
-                position: "top-end",
+                position: "top-center",
                 icon: "success",
                 title: res.message,
                 showConfirmButton: false,

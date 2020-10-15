@@ -31,11 +31,16 @@ class AnimalController extends Controller
     return $response;
   }
 
-  public function list()
+  public function list($query)
   {
 
     try {
-      $data = Animal::with("cliente.usuario", "medico.usuario")->get();
+
+      if ($query != "-" && $query != "") {
+        $data = Animal::where('nombre', 'LIKE', $query . "%")->with("cliente.usuario", "medico.usuario")->get();
+      } else {
+        $data = Animal::with("cliente.usuario", "medico.usuario")->get();
+      }
       $response['data'] = $data;
       $response['success'] = true;
     } catch (\Exception $e) {
@@ -60,10 +65,10 @@ class AnimalController extends Controller
       Animal::insert($insert);
 
       $response['message'] = "Animal Registrado";
-      $response['succes'] = true;
+      $response['success'] = true;
     } catch (\Exception $e) {
       $response['message'] = $e->getMessage();
-      $response['succes'] = false;
+      $response['success'] = false;
     }
 
     return $response;
