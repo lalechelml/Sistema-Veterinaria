@@ -1,0 +1,61 @@
+.button-action {
+    color: red;
+    /* width: 20px; */
+}
+
+.input-group-text {
+    background-color: transparent !important;
+    width: 40px !important;
+}
+
+.input-group {
+    margin: 10px 0;
+    height: 38px;
+}
+
+.form {
+    width: 100%;
+    max-width: 500px;
+}
+
+#main .carousel-inner img {
+    max-height: 80vh;
+    object-fit: cover;
+    filter: grayscale(70%);
+}
+
+#carousel {
+    position: relative;
+}
+
+#carousel .overlay {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    z-index: 1;
+}
+
+#carousel .overlay .container,
+#carousel .overlay .row {
+    height: 100%;
+}
+
+/* --------------------------- */
+.bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+@media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+    }
+}

@@ -1,0 +1,22 @@
+#reacod_logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#historial img {
+    height: 100px;
+    width: 100px;
+}
+
+#record_title {
+    text-align: center;
+}
+
+.detalle_title {
+    text-align: center;
+}
+
+.center_tilte {
+    text-align: center;
+}

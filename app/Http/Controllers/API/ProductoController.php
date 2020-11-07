@@ -1,23 +1,39 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers\API;;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Producto;
+use App\Models\CategoriaProd;
+
+use Illuminate\Support\Facades\Storage;
 
 class ProductoController extends Controller
 {
 
-    public function list($query)
+    public function imagen(Request $request)
     {
+        if (isset($request->cargado)) {
+            $imagen = $request->imagen;
+            $imagen->store('public/productos');
+        }
+    }
 
+    public function categoria()
+    {
+        $data = CategoriaProd::get();
+
+        $response['data'] = $data;
+        $response['succes'] = true;
+
+        return $response;
+    }
+
+    public function list()
+    {
         try {
-            if ($query != "-" && $query != "") {
-                $data = Producto::where('prod_nombre', 'LIKE', $query . "%")->with("categoria")->get();
-            } else {
-                $data = Producto::with("categoria")->get();
-            }
+            $data = Producto::with("categoria")->get();
             $response['data'] = $data;
             $response['success'] = true;
         } catch (\Exception $e) {
@@ -30,14 +46,21 @@ class ProductoController extends Controller
     public function create(Request $request)
     {
         try {
-            $insert['catp_id'] = $request['categoria'];
-            $insert['prod_codigo'] = $request['codigo'];
-            $insert['prod_nombre'] = $request['nombre'];
-            $insert['prod_stock'] = $request['stock'];
-            $insert['prod_descripcion'] = $request['descripcion'];
-            $insert['prod_imagen'] = $request['imagen'];
+            $producto = Producto::create([
+                "catp_id" => $request->categoria,
+                "prod_codigo" => $request->codigo,
+                "prod_nombre" => $request->nombre,
+                "prod_stock" => $request->stock,
+                "prod_descripcion" => $request->descripcion,
+            ] + $request->all());
 
-            Producto::insert($insert);
+            if ($request->hasFile('imagen')) {
+
+                $imagen = $request->imagen->store('public/productos');
+                $url = Storage::url($imagen);
+                $producto->prod_imagen =  asset('') . substr($url, 1);
+                $producto->save();
+            }
 
             $response['message'] = "Producto Registrado";
             $response['success'] = true;
@@ -72,18 +95,27 @@ class ProductoController extends Controller
     }
 
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        try {
 
+        try {
             $data['catp_id'] = $request['categoria'];
             $data['prod_codigo'] = $request['codigo'];
             $data['prod_nombre'] = $request['nombre'];
             $data['prod_stock'] = $request['stock'];
             $data['prod_descripcion'] = $request['descripcion'];
-            $data['prod_imagen'] = $request['imagen'];
+            if ($request->hasFile('imagen')) {
+                // ---------
+                $image = Producto::find($request->id);
+                $path = str_replace(asset('') . 'storage', "\\public", $image->prod_imagen);
+                Storage::delete($path);
+                // -----------
+                $imagen = $request->imagen->store('public/productos');
+                $url = Storage::url($imagen);
+                $data['prod_imagen'] =  asset('') . substr($url, 1);
+            }
 
-            Producto::where("prod_id", $id)->update($data);
+            Producto::where("prod_id", $request->id)->update($data);
 
             $response['message'] = "Se actualizó correctamente";
             $response['success'] = true;
@@ -99,9 +131,16 @@ class ProductoController extends Controller
     {
 
         try {
+
+            $data = Producto::find($id);
+            $data->prod_imagen;
+
+            if ($data->prod_imagen) {
+                $path = str_replace(asset('') . 'storage', "\\public", $data->prod_imagen);
+                Storage::delete($path);
+            }
+
             Producto::where("prod_id", $id)->delete();
-            // $res = Producto::where("id_Producto", $id)->delete();
-            // $response['res'] = $res;
             $response['message'] = "Se eliminó correctamente";
             $response['success'] = true;
         } catch (\Exception $e) {

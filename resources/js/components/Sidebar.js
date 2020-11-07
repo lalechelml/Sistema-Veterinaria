@@ -1,97 +1,144 @@
-import React, { Component } from "react";
+import React, { Fragment } from "react";
 import { NavLink } from "react-router-dom";
 
 function Sidebar() {
     return (
-        <nav
-            id="sidebarMenu"
-            className="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse"
-        >
-            <div className="sidebar-sticky pt-3">
-                <ul className="nav flex-column">
-                    <li className="nav-item">
-                        <NavLink
-                            className="nav-link "
-                            to="/"
-                            activeClassName="active"
+        <Fragment>
+            <nav
+                class="navbar-default navbar-static-side"
+                role="navigation"
+                style={{ position: "fixed" }}
+            >
+                <div class="sidebar-collapse">
+                    <ul class="nav metismenu" id="side-menu">
+                        <li
+                            class="nav-header"
+                            style={{ backgroundColor: "transparent" }}
                         >
-                            Inicio
-                        </NavLink>
-                    </li>
-                    <li className="nav-item">
-                        <NavLink
-                            className="nav-link a"
-                            to="/animales"
-                            activeClassName="active"
-                        >
-                            Animales
-                        </NavLink>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link" href="#">
-                            Clientes
-                        </a>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link" href="#">
-                            Medicos
-                        </a>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link" href="#">
-                            Admin
-                        </a>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link" href="#">
-                            <span data-feather="layers"></span>
-                            NO se Que poner
-                        </a>
-                    </li>
-                </ul>
+                            <div class="dropdown profile-element">
+                                <img
+                                    height="48"
+                                    alt="image"
+                                    class="rounded-circle"
+                                    src="img/anvorguesa.png"
+                                />
+                                <a
+                                    data-toggle="dropdown"
+                                    class="dropdown-toggle"
+                                    href="#"
+                                >
+                                    <span class="block m-t-xs font-bold">
+                                        Anvorguesa
+                                    </span>
+                                    <span class="text-muted text-xs block">
+                                        gaa <b class="caret"></b>
+                                    </span>
+                                </a>
+                                <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                                    <li>
+                                        <a
+                                            class="dropdown-item"
+                                            href="profile.html"
+                                        >
+                                            Profile
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a
+                                            class="dropdown-item"
+                                            href="contacts.html"
+                                        >
+                                            Contacts
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a
+                                            class="dropdown-item"
+                                            href="mailbox.html"
+                                        >
+                                            Mailbox
+                                        </a>
+                                    </li>
+                                    <li class="dropdown-divider"></li>
+                                    <li>
+                                        <a
+                                            class="dropdown-item"
+                                            href="login.html"
+                                        >
+                                            Logout
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="logo-element">IN+</div>
+                        </li>
+                        <li>
+                            <NavLink to="/animales">
+                                <i class="fas fa-paw"></i>
+                                <span class="nav-label">Animales</span>
+                            </NavLink>
+                        </li>
+                        <li>
+                            <NavLink to="/propietarios">
+                                <i class="fas fa-users"></i>
+                                <span class="nav-label">Propietarios</span>
+                            </NavLink>
+                        </li>
 
-                <h6 className="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
-                    <span>Ecommerce</span>
-                    <a
-                        className="d-flex align-items-center text-muted"
-                        href="#"
-                        aria-label="Add a new report"
-                    >
-                        <span data-feather="plus-circle"></span>
-                    </a>
-                </h6>
-                <ul className="nav flex-column mb-2">
-                    <li className="nav-item">
-                        <NavLink
-                            className="nav-link"
-                            to={"/productos"}
-                            activeClassName="active"
-                        >
-                            <span data-feather="file-text"></span>
-                            Productos
-                        </NavLink>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link" href="#">
-                            <span data-feather="file-text"></span>
-                            Servicios
-                        </a>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link" href="#">
-                            <span data-feather="file-text"></span>
-                            Caja
-                        </a>
-                    </li>
-                    <li className="nav-item">
-                        <a className="nav-link" href="#">
-                            <span data-feather="file-text"></span>
-                            gaaaaaaa
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
+                        <li>
+                            <a href="#">
+                                <i class="fas fa-user-md"></i>
+                                <span class="nav-label">Medícos</span>
+                                <span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <NavLink to="/medicos">
+                                        Lista de Medícos
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/enfermedades">
+                                        Enfermedades
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/servicios">servicios</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/atencion">
+                                        Atención Médica
+                                    </NavLink>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <i class="fa fa-bar-chart-o"></i>{" "}
+                                <span class="nav-label">Ecommerce</span>
+                                <span class="fa arrow"></span>
+                            </a>
+                            <ul class="nav nav-second-level collapse">
+                                <li>
+                                    <NavLink to="/productos">Productos</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/categorias">
+                                        Categorias
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/ventas">Ventas</NavLink>
+                                </li>
+                                <li>
+                                    <NavLink to="/facturas">Facturas</NavLink>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </Fragment>
     );
 }
 

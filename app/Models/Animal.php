@@ -21,4 +21,8 @@ class Animal extends Model
     {
         return $this->belongsTo(Propietario::class, 'pro_id');
     }
+    public function atenciones()
+    {
+        return $this->hasMany(AtencionMedica::class, 'ani_id');
+    }
 }

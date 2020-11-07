@@ -1,31 +1,18 @@
-import React, { Component } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import ReactDOM from "react-dom";
-import Sidebar from "./Sidebar";
+import React from "react";
+import Footer from "./Footer";
 import Header from "./Header";
 
-import Animal from "./animales/Main";
-import Index from "./Index";
-import Producto from "./productos/Main";
-
-function Container() {
+const Container = props => {
     return (
-        <Router>
+        <div id="page-wrapper" class="gray-bg dashbard-1">
             <Header />
-            <div className="container-fluid">
-                <div className="row">
-                    <Sidebar />
-                    <Switch>
-                        <Route path="/" exact component={Index} />
-                        <Route path="/animales" exact component={Animal} />
-                        <Route path="/productos" exact component={Producto} />
-                    </Switch>
-                </div>
+
+            <div class="row wrapper wrapper-content animated fadeInRight">
+                <div class="col-lg-12">{props.children}</div>
             </div>
-        </Router>
+            <Footer />
+        </div>
     );
-}
+};
 
 export default Container;
-
-ReactDOM.render(<Container />, document.getElementById("main"));

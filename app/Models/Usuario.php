@@ -11,26 +11,18 @@ class Usuario extends Model
     use HasFactory;
 
     protected $table = 'usuario';
-    protected $primaryKey = 'id_usuario';
+    protected $primaryKey = 'usu_id';
     public $timestamps = false;
 
     protected $fillable = [
         'dni',
-        'nombre',
-        'apellido',
-        'telefono',
-        'email',
-        'direccion',
-        'sexo',
+        'per_id',
+        'usu_dni',
+        'usu_email',
+        'usu_contrasenia',
+        'usu_nombres',
+        'usu_apellidos',
+        'usu_celular',
+        'usu_estado'
     ];
-
-    public function clientes()
-    {
-        return $this->hasMany(Cliente::class, 'id_cliente');
-    }
-
-    public function Medicos()
-    {
-        return $this->hasMany(Medico::class, 'id_medico');
-    }
 }

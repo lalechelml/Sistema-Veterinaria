@@ -12,4 +12,8 @@ class Propietario extends Model
     protected $table = 'propietario';
     protected $primaryKey = 'pro_id';
     public $timestamps = false;
+
+    protected $fillable = [
+        'pro_dni', 'pro_nombre', 'pro_apellidos', 'pro_telefono', 'pro_email', 'pro_direccion', 'pro_ciudad',
+    ];
 }

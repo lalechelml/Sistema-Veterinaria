@@ -12,4 +12,9 @@ class CategoriaProd extends Model
     protected $table = 'categoria_prod';
     protected $primaryKey = 'catp_id';
     public $timestamps = false;
+
+
+    protected $fillable = [
+        'catp_nombre', 'catp_descripcion'
+    ];
 }
