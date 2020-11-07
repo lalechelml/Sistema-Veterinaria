@@ -51,7 +51,7 @@ class AtencionMedicaController extends Controller
 
         try {
 
-            $data = AtencionMedica::with("animal", "medico", "servicio", "detalles")->find($id);
+            $data = AtencionMedica::with("animal", "medico", "servicio", "detalles.producto", "detalles.enfermedad")->find($id);
 
             if ($data) {
                 $response['data'] = $data;

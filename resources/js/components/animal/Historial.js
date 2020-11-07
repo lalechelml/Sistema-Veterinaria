@@ -113,7 +113,6 @@ const Imprimir = React.forwardRef((props, ref) => {
                 </tbody>
             </table>
             {props.atenciones.map((atencion, indice) => {
-                debugger;
                 return (
                     <div key={atencion.ate_id}>
                         <h3 className="detalle_title">Atención {indice + 1}</h3>
@@ -230,34 +229,20 @@ const Imprimir = React.forwardRef((props, ref) => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {/* {!props.detalles[indice]
-                                    ? null
-                                    : props.detalles[indice].map(
-                                          detalle,
-                                          iDetalle => {
-                                              debugger;
-                                              return (
-                                                  <tr>
-                                                      <td>{iDetalle + 1}</td>
-                                                      <td>
-                                                          {
-                                                              detalle.enfermdad
-                                                                  .enf_nombre
-                                                          }
-                                                      </td>
-                                                      <td>
-                                                          {
-                                                              detalle.producto
-                                                                  .pro_nombre
-                                                          }
-                                                      </td>
-                                                      <td>
-                                                          {detalle.deta_dosis}
-                                                      </td>
-                                                  </tr>
-                                              );
-                                          }
-                                      )} */}
+                                {atencion.detalles.map((detalle, iDetalle) => {
+                                    return (
+                                        <tr key={detalle.deta_id}>
+                                            <td>{iDetalle + 1}</td>
+                                            <td>
+                                                {detalle.enfermedad.enf_nombre}
+                                            </td>
+                                            <td>
+                                                {detalle.producto.prod_nombre}
+                                            </td>
+                                            <td>{detalle.deta_dosis}</td>
+                                        </tr>
+                                    );
+                                })}
                             </tbody>
                         </table>
                     </div>
@@ -289,13 +274,7 @@ const Historial = props => {
                 );
                 listAtenciones.push(ateData.data);
                 let listDetalles = [];
-                ateData.data.detalles.forEach(async detalle => {
-                    let detaData = await props.metodo.get(
-                        detalle.deta_id,
-                        "detalleAtencion"
-                    );
-                    listDetalles.push(detaData.data);
-                });
+
                 let arrayDetalles = [...detalles];
                 arrayDetalles.push(listDetalles);
                 setDetalles(arrayDetalles);
@@ -305,8 +284,6 @@ const Historial = props => {
 
         getData();
     }, []);
-
-    useEffect(() => {}, [atenciones]);
 
     const quitarModal = () => {
         ReactDOM.unmountComponentAtNode(document.getElementById("modalEditar"));
@@ -340,7 +317,6 @@ const Historial = props => {
                         <Imprimir
                             ref={componentRef}
                             atenciones={atenciones}
-                            detalles={detalles}
                             animal={props.data}
                         />
                         <div className="modal-footer">
