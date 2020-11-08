@@ -57,7 +57,7 @@ class VentaController extends Controller
 
         try {
 
-            $data = Venta::with("propietario", "usuario", "detallles")->find($id);
+            $data = Venta::with("propietario", "usuario", "detalles.producto", "detalles.atencion")->find($id);
 
             if ($data) {
                 $response['data'] = $data;

@@ -4,6 +4,7 @@ import Service from "../services/Service";
 import Modal from "./Modal";
 import MaterialTable from "material-table";
 import Nav from "./Nav";
+import Comprobante from "./Comprobante";
 
 const Listar = props => {
     const [lading, setLoading] = useState(true);
@@ -48,12 +49,12 @@ const Listar = props => {
 
     const getData = async () => {
         setDataList(props.ventas);
-        setLoading(false);
     };
 
     useEffect(() => {
         getData();
-    }, []);
+        props.ventas.length != 0 ? setLoading(false) : null;
+    }, [props]);
 
     const eliminar = async id => {
         Swal.fire({
@@ -125,8 +126,6 @@ const Listar = props => {
                         };
                         detalles = [...detalles, tDetalle];
                     });
-                    debugger;
-
                     return (
                         <table class="table">
                             <thead>
@@ -164,14 +163,17 @@ const Listar = props => {
                 title="Lista de Ventas"
                 actions={[
                     {
-                        icon: "edit",
-                        tooltip: "Editar Categoria",
-                        onClick: (event, rowData) => abrirModal(rowData.enf_id)
-                    },
-                    {
-                        icon: "delete",
-                        tooltip: "Eliminar Categoria",
-                        onClick: (event, rowData) => eliminar(rowData.enf_id)
+                        icon: "text_snippet",
+                        tooltip: "Ver Comprobante",
+                        onClick: (event, rowData) => {
+                            ReactDOM.unmountComponentAtNode(
+                                document.getElementById("modalEditar")
+                            );
+                            ReactDOM.render(
+                                <Comprobante metodo={metodo} data={rowData} />,
+                                document.getElementById("modalEditar")
+                            );
+                        }
                     }
                 ]}
                 options={{
